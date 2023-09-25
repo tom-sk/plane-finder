@@ -23,7 +23,6 @@ onMounted(() => {
         linePath.value = res.data.progress;
 
         intervalId.value = setInterval(() => {
-            console.log(position.value);
             position.value = position.value + 1;
 
             flightApi
