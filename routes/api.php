@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/flights', [FlightController::class, 'index'])->name('flights.index');
+Route::get('/flights', FlightController::class)->name('flights.index');
