@@ -12,11 +12,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        //Seed DB with two flights
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         \App\Models\FLight::factory()->create([
+                'startX' => -0.18578166984152553,
+                'startY' => 51.15573577417759,
+                'endX' => -0.33180561406680537,
+                'endY' => 51.234428399919196,
+                'speed' => 0.5
+         ]);
+
+        \App\Models\FLight::factory()->create([
+            'startX' => -0.18578166984152553,
+            'startY' => 51.1,
+            'endX' => -0.16815974596153746,
+            'endY' => 51.235971822243734,
+            'speed' => 0.5
+        ]);
     }
 }
