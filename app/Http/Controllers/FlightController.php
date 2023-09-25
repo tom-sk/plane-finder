@@ -12,7 +12,7 @@ class FlightController extends Controller
      */
     public function index()
     {
-        //
+        return Flight::all();
     }
 
     /**

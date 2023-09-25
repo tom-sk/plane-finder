@@ -1,6 +1,9 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import PlaneIcon from "@/components/icons/PlaneIcon.vue";
+import MapContainer from "@/Components/maps/MapContainer.vue";
+import FlightMarker from "@/Components/maps/FlightMarker.vue";
+import FlightLine from "@/Components/maps/FlightLine.vue";
 const center = ref([-0.18578166984152553, 51.15573577417759]);
 const start1 = ref([-0.18578166984152553, 51.15573577417759]);
 const start2 = ref([-0.18578166984152553, 51.1]);
@@ -92,52 +95,20 @@ const strokeColor = ref("red");
 </script>
 
 <template>
-    <ol-map style="height: 100%">
-        <ol-view
-            ref="view"
-            :center="center"
-            :zoom="zoom"
-            :projection="projection"
+    <MapContainer>
+        <FlightMarker :position="position" />
+        <FlightMarker :position="position2" />
+
+        <FlightLine
+            :line-path="linePath"
+            :stroke-color="strokeColor"
+            :stroke-width="strokeWidth"
         />
 
-        <ol-tile-layer>
-            <ol-source-osm />
-        </ol-tile-layer>
-
-        <ol-overlay :position="position">
-            <PlaneIcon class="overlay-content" />
-        </ol-overlay>
-
-        <ol-overlay :position="position2">
-            <PlaneIcon class="overlay-content" />
-        </ol-overlay>
-
-        <ol-vector-layer>
-            <ol-source-vector>
-                <ol-feature>
-                    <ol-geom-line-string :coordinates="linePath" />
-                    <ol-style>
-                        <ol-style-stroke
-                            :color="strokeColor"
-                            :width="strokeWidth"
-                        />
-                    </ol-style>
-                </ol-feature>
-            </ol-source-vector>
-        </ol-vector-layer>
-
-        <ol-vector-layer>
-            <ol-source-vector>
-                <ol-feature>
-                    <ol-geom-line-string :coordinates="linePath2" />
-                    <ol-style>
-                        <ol-style-stroke
-                            :color="strokeColor"
-                            :width="strokeWidth"
-                        />
-                    </ol-style>
-                </ol-feature>
-            </ol-source-vector>
-        </ol-vector-layer>
-    </ol-map>
+        <FlightLine
+            :line-path="linePath2"
+            :stroke-color="strokeColor"
+            :stroke-width="strokeWidth"
+        />
+    </MapContainer>
 </template>

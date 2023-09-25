@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('endY');
             $table->float('speed');
             $table->string('code');
+            $table->integer('position')->default(0);
             $table->text('description');
         });
     }
