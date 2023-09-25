@@ -6,11 +6,11 @@ defineProps({
     },
     strokeColor: {
         type: String,
-        default: () => "#000000",
+        default: () => "red",
     },
     strokeWidth: {
         type: Number,
-        default: () => 1,
+        default: () => 10,
     },
 });
 </script>

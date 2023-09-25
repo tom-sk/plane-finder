@@ -44,9 +44,14 @@ class Flight extends Model
         return $pathCalc;
     }
 
-    function getPosition(){
+    function getFlightLocation(){
         $pathCalc = $this->getPoints();
         $position = $pathCalc[$this->position];
         return $position;
+    }
+
+    function getFlightProgress(){
+        $points = $this->getPoints();
+        return array_slice($points, 0, $this->position);
     }
 }

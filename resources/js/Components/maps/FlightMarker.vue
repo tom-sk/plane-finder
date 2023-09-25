@@ -2,7 +2,7 @@
 import PlaneIcon from "@/Components/icons/PlaneIcon.vue";
 
 defineProps({
-    position: {
+    location: {
         type: Object,
         default: () => {},
     },
@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <ol-overlay :position="position">
+    <ol-overlay :position="location">
         <PlaneIcon class="overlay-content" />
     </ol-overlay>
 </template>

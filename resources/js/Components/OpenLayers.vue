@@ -1,114 +1,54 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import PlaneIcon from "@/components/icons/PlaneIcon.vue";
+import flightApi from "@/api/flight-api.js";
+import { onMounted, onUnmounted, ref } from "vue";
 import MapContainer from "@/Components/maps/MapContainer.vue";
-import FlightMarker from "@/Components/maps/FlightMarker.vue";
-import FlightLine from "@/Components/maps/FlightLine.vue";
-const center = ref([-0.18578166984152553, 51.15573577417759]);
-const start1 = ref([-0.18578166984152553, 51.15573577417759]);
-const start2 = ref([-0.18578166984152553, 51.1]);
+import FlightPath from "@/Components/maps/FlightPath.vue";
 
-// x, y
-
-const end = ref([-0.33180561406680537, 51.234428399919196]);
-
-const end2 = ref([-0.16815974596153746, 51.235971822243734]);
-
-const projection = ref("EPSG:4326");
-const zoom = ref(12);
-
+const location = ref();
 const position = ref();
-const position2 = ref();
 
-const firstPath = ref([]);
-const secondPath = ref([]);
+const linePath = ref([]);
 
-const linePath = computed(() => {
-    return firstPath.value.slice(0, flightPosition.value);
-});
+const intervalId1 = null;
+const intervalId2 = null;
 
-const linePath2 = computed(() => {
-    return secondPath.value.slice(0, flightPosition2.value);
-});
-
-function getPoints(start, end, speed) {
-    // Page will be updated every 10 seconds
-
-    const pathCalc = [];
-    let x1 = start[0];
-    let y1 = start[1];
-    const x2 = end[0];
-    const y2 = end[1];
-
-    //  Vector length
-    const distance = Math.hypot(x2 - x1, y2 - y1);
-
-    // Number of steps to control speed
-    let steps = Math.floor((distance * 100) / speed);
-
-    for (steps; steps > 0; steps--) {
-        x1 += (x2 - x1) / steps;
-        y1 += (y2 - y1) / steps;
-        pathCalc.push([x1, y1]);
-    }
-
-    return pathCalc;
-}
-
-const flightPosition = ref(0);
-const flightPosition2 = ref(0);
-
-const fly1 = () => {
-    flightPosition.value++;
-
-    if (flightPosition.value < firstPath.value.length) {
-        position.value = firstPath.value[flightPosition.value];
-    }
-};
-
-const fly2 = () => {
-    flightPosition2.value++;
-
-    if (flightPosition2.value < secondPath.value.length) {
-        position2.value = secondPath.value[flightPosition2.value];
-    }
-};
-
-let intervalId = null;
-
-onMounted(() => {
-    intervalId = setInterval(() => {
-        fly1();
-        fly2();
-    }, 100);
-
-    firstPath.value = getPoints(start1.value, end.value, 0.3);
-    secondPath.value = getPoints(start2.value, end2.value, 0.07);
-});
+// onMounted(() => {
+//     flightApi.getPosition(1).then((res) => {
+//         position.value = res.data.position ? res.data.position : 0;
+//         location.value = res.data.location;
+//         linePath.value = res.data.progress;
+//
+//         intervalId1 = setInterval(() => {
+//             position.value = position.value + 1;
+//
+//             flightApi
+//                 .updatePosition({
+//                     id: 1,
+//                     position: position.value,
+//                 })
+//                 .then((res) => {
+//                     // set new position to move icon across the map
+//                     location.value = res.data.location;
+//                     position.value = res.data.position;
+//                     // push the new coords to the line path to draw the line
+//                     linePath.value = res.data.progress;
+//                 });
+//         }, 1000);
+//     });
+// });
 
 onUnmounted(() => {
-    clearInterval(intervalId);
+    clearInterval(intervalId1);
+    clearInterval(intervalId2);
 });
-
-const strokeWidth = ref(10);
-const strokeColor = ref("red");
 </script>
 
 <template>
     <MapContainer>
-        <FlightMarker :position="position" />
-        <FlightMarker :position="position2" />
+        <FlightPath :id="1" />
+        <FlightPath :id="2" />
 
-        <FlightLine
-            :line-path="linePath"
-            :stroke-color="strokeColor"
-            :stroke-width="strokeWidth"
-        />
-
-        <FlightLine
-            :line-path="linePath2"
-            :stroke-color="strokeColor"
-            :stroke-width="strokeWidth"
-        />
+        <!--        <FlightMarker :position="position2" />-->
+        <!--        <FlightLine :line-path="linePath2" />-->
     </MapContainer>
 </template>
