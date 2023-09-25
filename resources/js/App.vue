@@ -4,7 +4,6 @@ import OpenLayers from "@/Components/OpenLayers.vue";
 
 <template>
     <main class="h-screen w-full bg-gray-100">
-        test
         <OpenLayers />
     </main>
 </template>

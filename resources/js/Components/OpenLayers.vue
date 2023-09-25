@@ -92,10 +92,6 @@ const strokeColor = ref("red");
 </script>
 
 <template>
-    <button class="btn-default" type="button" @click="moveToEast">
-        Move to the right
-    </button>
-
     <ol-map style="height: 100%">
         <ol-view
             ref="view"
