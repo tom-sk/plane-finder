@@ -27,18 +27,18 @@ onMounted(() => {
         intervalId.value = setInterval(() => {
             position.value = position.value + 1;
 
-            flightApi
-                .updatePosition({
-                    id: props.id,
-                    position: position.value,
-                })
-                .then((res) => {
-                    // set new position to move icon across the map
-                    location.value = res.data.location;
-                    position.value = res.data.position;
-                    // update the line with new progress coords
-                    linePath.value = res.data.progress;
-                });
+            // flightApi
+            //     .updatePosition({
+            //         id: props.id,
+            //         position: position.value,
+            //     })
+            //     .then((res) => {
+            //         // set new position to move icon across the map
+            //         location.value = res.data.location;
+            //         position.value = res.data.position;
+            //         // update the line with new progress coords
+            //         linePath.value = res.data.progress;
+            //     });
         }, 1000);
     });
 });
