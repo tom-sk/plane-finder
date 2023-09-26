@@ -4,6 +4,9 @@ export default {
     getFlights() {
         return planeBase.get("/api/flights");
     },
+    getFlight(id) {
+        return planeBase.get("/api/flight/" + id);
+    },
     getPosition(flight) {
         return planeBase.get("/api/flight-position/" + flight);
     },

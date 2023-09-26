@@ -3,6 +3,7 @@ import FlightLine from "@/components/maps/FlightLine.vue";
 import FlightMarker from "@/components/maps/FlightMarker.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import flightApi from "@/api/flight-api.js";
+import BaseModal from "@/components/BaseModal.vue";
 
 const props = defineProps({
     id: {
@@ -15,6 +16,7 @@ const linePath = ref([]);
 const location = ref();
 const position = ref();
 const intervalId = ref();
+const details = ref(null);
 
 onMounted(() => {
     flightApi.getPosition(props.id).then((res) => {
@@ -44,9 +46,35 @@ onMounted(() => {
 onUnmounted(() => {
     clearInterval(intervalId);
 });
+
+const open = ref(false);
+
+function openModal() {
+    if (details.value === null) {
+        flightApi.getFlight(props.id).then((res) => {
+            details.value = res.data;
+            open.value = true;
+        });
+    } else {
+        open.value = true;
+    }
+}
 </script>
 
 <template>
-    <FlightMarker :location="location" />
+    <FlightMarker :location="location" @click="openModal" />
     <FlightLine :line-path="linePath" />
+
+    <Teleport to="body">
+        <BaseModal :open="open" @close="open = false">
+            <div class="grid grid-cols-2 gap-2 text-left">
+                <div>Flight code:</div>
+                <div class="font-bold">{{ details.code }}</div>
+                <div>Speed:</div>
+                <div class="font-bold">{{ details.speed }}</div>
+                <div>Details:</div>
+                <div class="font-bold">{{ details.description }}</div>
+            </div>
+        </BaseModal>
+    </Teleport>
 </template>

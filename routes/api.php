@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/flights', FlightController::class)->name('flights.index');
+Route::get('/flight/{flight}', [FlightController::class, 'show'])->name('flights.show');
 
 Route::get('/flight-position/{flight}', FlightPositionController::class)->name('flight-position.index');
 Route::post('/update-position', [FlightPositionController::class, 'update'])->name('flight-position.update');
