@@ -1,6 +1,6 @@
 <script setup>
-import FlightLine from "@/Components/maps/FlightLine.vue";
-import FlightMarker from "@/Components/maps/FlightMarker.vue";
+import FlightLine from "@/components/maps/FlightLine.vue";
+import FlightMarker from "@/components/maps/FlightMarker.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import flightApi from "@/api/flight-api.js";
 
@@ -34,7 +34,7 @@ onMounted(() => {
                     // set new position to move icon across the map
                     location.value = res.data.location;
                     position.value = res.data.position;
-                    // push the new coords to the line path to draw the line
+                    // update the line with new progress coords
                     linePath.value = res.data.progress;
                 });
         }, 1000);

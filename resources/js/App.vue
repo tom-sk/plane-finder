@@ -1,6 +1,6 @@
 <script setup>
-import OpenLayers from "@/Components/OpenLayers.vue";
-import DevControls from "@/Components/DevControls.vue";
+import OpenLayers from "@/components/OpenLayers.vue";
+import DevControls from "@/components/DevControls.vue";
 </script>
 
 <template>

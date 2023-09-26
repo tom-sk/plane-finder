@@ -25,6 +25,7 @@ class Flight extends Model
     ];
 
     function getPoints () {
+//        Calc number of steps based on distance and speed
         $pathCalc = [];
         $x1 = $this->startX;
         $y1 = $this->startY;
@@ -45,6 +46,7 @@ class Flight extends Model
     }
 
     function getFlightLocation(){
+//         Get location of flight based on position
         $pathCalc = $this->getPoints();
         $position = $pathCalc[$this->position];
         return $position;

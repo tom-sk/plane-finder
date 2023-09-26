@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FlightController;
 use App\Http\Controllers\FlightPositionController;
+use App\Http\Controllers\FlightResetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,5 @@ Route::get('/flights', FlightController::class)->name('flights.index');
 
 Route::get('/flight-position/{flight}', FlightPositionController::class)->name('flight-position.index');
 Route::post('/update-position', [FlightPositionController::class, 'update'])->name('flight-position.update');
-Route::post('/reset-data', [FlightPositionController::class, 'resetFlights'])->name('flight-position.reset');
+Route::post('/reset-data', FlightResetController::class)->name('flight-position.reset');
 

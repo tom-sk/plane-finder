@@ -23,29 +23,17 @@ class FlightPositionController extends Controller
 
     public function update(PositionRequest $request)
     {
-            $flight = Flight::find($request->id);
+        $flight = Flight::find($request->id);
 
-            if(count($flight->getPoints()) > $request->position){
-                $flight->position = $request->position;
-                $flight->save();
-            }
+        if(count($flight->getPoints()) > $request->position){
+            $flight->position = $request->position;
+            $flight->save();
+        }
 
         return response()->json([
             'position' => $flight->position,
             'location' => $flight->getFlightLocation(),
             'progress' => $flight->getFlightProgress(),
-        ]);
-    }
-
-    public function resetFlights()
-    {
-        $flights = Flight::all();
-        foreach ($flights as $flight) {
-            $flight->position = 0;
-            $flight->save();
-        }
-        return response()->json([
-            'message' => 'Flights reset'
         ]);
     }
 }

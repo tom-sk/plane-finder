@@ -7,7 +7,7 @@ function rest() {
 </script>
 
 <template>
-    <main class="p-4">
+    <main class="absolute right-0 z-10 p-4">
         <button
             type="button"
             class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"

@@ -1,5 +1,5 @@
 <script setup>
-import PlaneIcon from "@/Components/icons/PlaneIcon.vue";
+import PlaneIcon from "@/components/icons/PlaneIcon.vue";
 
 defineProps({
     location: {
